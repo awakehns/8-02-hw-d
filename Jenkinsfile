@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Build GO binary') {
             steps {
-                sh '/usr/local/go/bin/go build -a -installsuffix nocgo -o /app .'
+                sh 'RUN CGO_ENABLED=0 GOOS=linux /usr/local/go/bin/go build -a -installsuffix nocgo -o /app .'
             }
         }
         stage('Push to Nexus anonymous') {
