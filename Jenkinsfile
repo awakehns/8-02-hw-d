@@ -2,8 +2,11 @@
 
 pipeline {
     agent any
+    environment {
+        NEXUS_URL = "http://127.0.0.1:8082/repository/8-02-hw-nexux-raw-hosted/"
+    }
     stages {
-	stage('Checkout') {
+        stage('Checkout') {
             steps {
                 checkout scm
             }
@@ -13,10 +16,20 @@ pipeline {
                 sh '/usr/local/go/bin/go test .'
             }
         }
-        stage('Build') {
+        stage('Build GO binary') {
             steps {
-                sh '/usr/bin/docker build .' 
+                sh '/usr/local/go/bin/go build -a -installsuffix nocgo -o /app .'
             }
-        }   
+        }
+        stage('Push to Nexus anonymous') {
+            steps {
+                sh """
+                    curl -X POST \
+                        -H "Content-Type: application/octet-stream" \
+                        -T nocgo-app \
+                        "${NEXUS_URL}/nocgo-app"
+                """
+            }
+        }
     }
 }
