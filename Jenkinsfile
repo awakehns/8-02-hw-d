@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        NEXUS_URL = "http://127.0.0.1:8082/repository/8-02-hw-nexux-raw-hosted"
+        NEXUS_URL = "http://10.0.2.21:8082/repository/8-02-hw-nexux-raw-hosted"
     }
     stages {
         stage('Checkout') {
