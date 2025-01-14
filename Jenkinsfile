@@ -3,7 +3,7 @@
 pipeline {
     agent any
     environment {
-        NEXUS_URL = "http://127.0.0.1:8082/repository/8-02-hw-nexux-raw-hosted/"
+        NEXUS_URL = "http://127.0.0.1:8082/repository/8-02-hw-nexux-raw-hosted"
     }
     stages {
         stage('Checkout') {
@@ -26,8 +26,8 @@ pipeline {
                 sh """
                     curl -X POST \
                         -H "Content-Type: application/octet-stream" \
-                        -T nocgo-app \
-                        "${NEXUS_URL}/nocgo-app"
+                        -T app \
+                        "${NEXUS_URL}/app"
                 """
             }
         }
