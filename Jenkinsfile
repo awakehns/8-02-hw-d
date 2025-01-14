@@ -2,9 +2,6 @@
 
 pipeline {
     agent any
-    environment {
-        NEXUS_URL = "http://127.0.0.1:8082/repository/8-02-hw-nexux-raw-hosted"
-    }
     stages {
         stage('Checkout') {
             steps {
@@ -23,12 +20,7 @@ pipeline {
         }
         stage('Push to Nexus anonymous') {
             steps {
-                sh """
-                    curl -X POST \
-                        -H "Content-Type: application/octet-stream" \
-                        -T app \
-                        "${NEXUS_URL}/app"
-                """
+                sh "curl -v -u admin:admin --upload-file app http://127.0.0.1:8081/repository/8-02-hw-nexux-raw-hosted/app"
             }
         }
     }
