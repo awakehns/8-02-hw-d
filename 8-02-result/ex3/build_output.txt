@@ -1,0 +1,100 @@
+Started by user Демин Герман
+Obtained Jenkinsfile from git https://github.com/awakehns/8-02-hw-d
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/8-02-hw-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/8-02-hw-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/awakehns/8-02-hw-d # timeout=10
+Fetching upstream changes from https://github.com/awakehns/8-02-hw-d
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/awakehns/8-02-hw-d +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 29b4845a91bcbd0bc1aac78e83b247ffed334eae (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 29b4845a91bcbd0bc1aac78e83b247ffed334eae # timeout=10
+Commit message: "Fix Jenkinsfile _5"
+First time build. Skipping changelog.
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/8-02-hw-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/awakehns/8-02-hw-d # timeout=10
+Fetching upstream changes from https://github.com/awakehns/8-02-hw-d
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/awakehns/8-02-hw-d +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 29b4845a91bcbd0bc1aac78e83b247ffed334eae (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 29b4845a91bcbd0bc1aac78e83b247ffed334eae # timeout=10
+Commit message: "Fix Jenkinsfile _5"
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] sh
++ /usr/local/go/bin/go test .
+ok  	github.com/netology-code/sdvps-materials	(cached)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build GO binary)
+[Pipeline] sh
++ CGO_ENABLED=0 GOOS=linux /usr/local/go/bin/go build -a -installsuffix nocgo -o app .
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push to Nexus by curl)
+[Pipeline] sh
++ curl -v -u admin:admin --upload-file app http://127.0.0.1:8081/repository/8-02-hw-nexux-raw-hosted/app
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying 127.0.0.1:8081...
+* Connected to 127.0.0.1 (127.0.0.1) port 8081 (#0)
+* Server auth using Basic with user 'admin'
+> PUT /repository/8-02-hw-nexux-raw-hosted/app HTTP/1.1
+> Host: 127.0.0.1:8081
+> Authorization: Basic YWRtaW46YWRtaW4=
+> User-Agent: curl/7.88.1
+> Accept: */*
+> Content-Length: 2243621
+> Expect: 100-continue
+> 
+< HTTP/1.1 100 Continue
+} [65536 bytes data]
+* We are completely uploaded and fine
+< HTTP/1.1 201 Created
+< Date: Tue, 14 Jan 2025 01:57:15 GMT
+< Server: Nexus/3.76.0-03 (OSS)
+< X-Content-Type-Options: nosniff
+< Content-Security-Policy: sandbox allow-forms allow-modals allow-popups allow-presentation allow-scripts allow-top-navigation
+< X-XSS-Protection: 1; mode=block
+< Content-Length: 0
+< 
+100 2191k    0     0  100 2191k      0  47.9M --:--:-- --:--:-- --:--:-- 48.6M
+* Connection #0 to host 127.0.0.1 left intact
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

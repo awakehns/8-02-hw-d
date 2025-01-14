@@ -1,0 +1,76 @@
+Started by user Демин Герман
+Running as SYSTEM
+Building in workspace /var/lib/jenkins/workspace/8-02-hw-fp
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/8-02-hw-fp/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/awakehns/8-02-hw-d # timeout=10
+Fetching upstream changes from https://github.com/awakehns/8-02-hw-d
+ > git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > git fetch --tags --force --progress -- https://github.com/awakehns/8-02-hw-d +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 223dbc3f489784448004e020f2ef224f17a7b06d (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 223dbc3f489784448004e020f2ef224f17a7b06d # timeout=10
+Commit message: "Update README.md"
+First time build. Skipping changelog.
+[8-02-hw-fp] $ /bin/sh -xe /tmp/jenkins2377861237291087157.sh
++ echo Running go test
+Running go test
++ /usr/local/go/bin/go test .
+ok  	github.com/netology-code/sdvps-materials	(cached)
+[8-02-hw-fp] $ /bin/sh -xe /tmp/jenkins13100913809041085711.sh
++ echo Running docker build
+Running docker build
++ /usr/bin/docker build .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 350B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/golang:1.16
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/alpine:latest
+#3 DONE 2.5s
+
+#2 [internal] load metadata for docker.io/library/golang:1.16
+#2 DONE 2.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [builder 1/4] FROM docker.io/library/golang:1.16@sha256:5f6a4662de3efc6d6bb812d02e9de3d8698eea16b8eb7281f03e6f3e8383018e
+#5 DONE 0.0s
+
+#6 [stage-1 1/3] FROM docker.io/library/alpine:latest@sha256:56fa17d2a7e7f168a043a2712e63aed1f8543aeafdcee47c58dcffe38ed51099
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 13.16kB 0.0s done
+#7 DONE 0.0s
+
+#8 [builder 2/4] WORKDIR /go/src/github.com/netology-code/sdvps-materials
+#8 CACHED
+
+#9 [builder 3/4] COPY . ./
+#9 CACHED
+
+#10 [builder 4/4] RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix nocgo -o /app .
+#10 CACHED
+
+#11 [stage-1 2/3] RUN apk -U add ca-certificates
+#11 CACHED
+
+#12 [stage-1 3/3] COPY --from=builder /app /app
+#12 CACHED
+
+#13 exporting to image
+#13 exporting layers done
+#13 writing image sha256:2182c86a6c9ff93a4cb95bc7729794b429bac76208ef55fb7d5a67166791ee9c done
+#13 DONE 0.0s
+Finished: SUCCESS
